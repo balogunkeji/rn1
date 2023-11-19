@@ -1,43 +1,37 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
-import { COLORS, icons } from '../constants';
-import { ScreenHeaderBtn } from '../components';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { Stack, SplashScreen } from 'expo-router';
 
 export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
+  ErrorBoundary
 } from 'expo-router';
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: '(tabs)',
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/DMSans-Regular.ttf'),
-    ...FontAwesome.font,
-  });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+  const [fontsLoading, setFontsLoading] = useState(false);
+  const [fontsLoaded] = useFonts({
+    'DMSans-Regular': require('../assets/fonts/DMSans-Regular.ttf'),
+    'DMSans-Medium': require('../assets/fonts/DMSans-Medium.ttf'),
+    'DMSans-Bold': require('../assets/fonts/DMSans-Bold.ttf'),
+  })
 
   useEffect(() => {
-    if (loaded) {
+
+    if (fontsLoaded) {
+      setFontsLoading(true)
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoading, fontsLoaded]);
 
-  if (!loaded) {
+  if (!fontsLoading) {
     return null;
   }
 
@@ -49,7 +43,7 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack />
+        <Stack />
     </ThemeProvider>
   );
 }

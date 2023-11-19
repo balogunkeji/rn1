@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
+    marginBottom: 10,
     padding: SIZES.medium,
     borderRadius: SIZES.small,
     backgroundColor: "#FFF",
@@ -32,12 +33,12 @@ const styles = StyleSheet.create({
   },
   jobName: {
     fontSize: SIZES.medium,
-    fontFamily: "DMBold",
+    fontFamily: "DMSans-Bold",
     color: COLORS.primary,
   },
   jobType: {
     fontSize: SIZES.small + 2,
-    fontFamily: "DMRegular",
+    fontFamily: "DMSans-Regular",
     color: COLORS.gray,
     marginTop: 3,
     textTransform: "capitalize",

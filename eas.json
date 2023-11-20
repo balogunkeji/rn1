@@ -17,6 +17,9 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "distribution": "internal",
+      "channel": "staging"
+    }
   }
 }
